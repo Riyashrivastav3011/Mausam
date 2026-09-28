@@ -1,0 +1,104 @@
+.login-btn,
+.signup-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+/* Login */
+.login-btn {
+  color: #2563eb;
+  background: #f0f7ff;
+  border: 1px solid #dbeafe;
+}
+
+.login-btn:hover {
+  background: #e0efff;
+  transform: translateY(-1px);
+}
+
+/* Signup */
+.signup-btn {
+  color: #ffffff;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  border: none;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.signup-btn:hover {
+  background: linear-gradient(135deg, #0ea5e9, #1d4ed8);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.mobile-login,
+.mobile-signup,
+.mobile-settings {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+/* Mobile Login */
+.mobile-login {
+  color: #2563eb;
+  background: #f0f7ff;
+  border: 1px solid #dbeafe;
+}
+
+.mobile-login:hover {
+  background: #e0efff;
+}
+
+/* Mobile Signup */
+.mobile-signup {
+  color: white;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18);
+}
+
+.mobile-signup:hover {
+  background: linear-gradient(135deg, #0ea5e9, #1d4ed8);
+}
+
+/* Mobile Settings */
+.mobile-settings {
+  color: #334155;
+  background: #f8fafc;
+}
+
+.mobile-settings:hover {
+  background: #eef2f7;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .header-actions {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+}
