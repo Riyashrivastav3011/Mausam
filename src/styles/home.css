@@ -1,0 +1,2 @@
+/* Home-specific styles are intentionally small because the reusable visual system lives in global.css. */
+.hero-weather-card{min-height:265px}

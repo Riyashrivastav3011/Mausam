@@ -1,0 +1,78 @@
+.app-page{min-height:100vh;background:var(--bg,#f6f9fc);color:var(--text,#172033)}
+.page-topbar{position:sticky;top:0;z-index:20;height:72px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border,#e4ebf3);display:flex;align-items:center;padding:0 5%;gap:28px}
+.page-brand{display:flex;align-items:center;gap:10px;font-size:1.2rem;font-weight:800;color:var(--text,#172033);text-decoration:none;margin-right:18px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:#eaf4ff;color:#5b9bea;display:grid;place-items:center}
+.page-nav{display:flex;align-items:center;gap:7px;flex:1}
+.page-nav a{padding:9px 13px;border-radius:10px;text-decoration:none;color:#758399;font-weight:650;font-size:.92rem}
+.page-nav a:hover,.page-nav a.active{background:#eaf4ff;color:#4287df}
+.page-actions{display:flex;gap:8px}
+.icon-action{width:38px;height:38px;border:1px solid var(--border,#e4ebf3);border-radius:11px;background:#fff;color:#65758b;display:grid;place-items:center;text-decoration:none}
+.icon-action:hover{color:#4287df;background:#f4f9ff}
+.page-container{max-width:1180px;margin:auto;padding:42px 5% 70px}
+.back-link{display:inline-block;color:#4b91e7;text-decoration:none;font-weight:700;margin-bottom:22px}
+.page-heading{display:flex;justify-content:space-between;gap:30px;margin-bottom:28px}
+.page-heading h1{font-size:2rem;margin:5px 0 8px}
+.page-heading p:not(.eyebrow){color:#758399;margin:0;max-width:680px;line-height:1.6}
+.eyebrow{font-size:.72rem;letter-spacing:.13em;font-weight:800;color:#5b9bea;margin:0}
+.page-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.page-card{background:#fff;border:1px solid #e4ebf3;border-radius:20px;padding:22px;box-shadow:0 10px 30px rgba(30,62,92,.06)}
+.page-card h2{margin:0 0 8px;font-size:1.12rem}
+.page-card p{color:#758399;line-height:1.6}
+.primary-btn,.secondary-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 17px;font-weight:750;text-decoration:none;cursor:pointer;border:0}
+.primary-btn{background:#5b9bea;color:#fff;box-shadow:0 8px 18px rgba(91,155,234,.2)}
+.secondary-btn{background:#eef6ff;color:#397fda}
+.option-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.option-card{border:1.5px solid #e4ebf3;background:#fff;border-radius:18px;padding:18px;cursor:pointer;text-align:left;transition:.2s}
+.option-card:hover,.option-card.selected{border-color:#76aceb;background:#f1f8ff;transform:translateY(-2px)}
+.option-icon{width:44px;height:44px;border-radius:13px;background:#eaf4ff;color:#4c91e7;display:grid;place-items:center;margin-bottom:13px}
+.option-card h3{font-size:1rem;margin:0 0 5px}
+.option-card p{font-size:.83rem;color:#7b899b;line-height:1.45;margin:0}
+.progress-row{display:flex;justify-content:space-between;color:#7b899b;font-size:.85rem;margin-bottom:9px}
+.progress-bar{height:7px;background:#e8eef5;border-radius:99px;overflow:hidden;margin-bottom:28px}
+.progress-fill{height:100%;background:#5b9bea;border-radius:99px}
+.step-actions{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.location-search{display:flex;gap:10px;margin-bottom:18px}
+.location-search input{flex:1;border:1px solid #dfe7f0;border-radius:12px;padding:13px 15px;font:inherit;outline:none}
+.location-search input:focus{border-color:#78afea;box-shadow:0 0 0 3px #eaf4ff}
+.location-list{display:grid;gap:10px}
+.location-item{display:flex;align-items:center;justify-content:space-between;border:1px solid #e4ebf3;border-radius:15px;padding:15px;background:#fff}
+.location-info{display:flex;align-items:center;gap:12px}
+.location-pin{width:38px;height:38px;border-radius:11px;background:#eef8f6;color:#4fb8a8;display:grid;place-items:center}
+.location-item strong{display:block}
+.location-item span{font-size:.8rem;color:#8491a2}
+.weather-big{display:flex;align-items:center;justify-content:space-between}
+.weather-temp{font-size:3rem;font-weight:800;margin:8px 0}
+.forecast-list{display:grid;gap:10px}
+.forecast-row{display:grid;grid-template-columns:100px 1fr 90px 90px;align-items:center;gap:12px;padding:15px;border:1px solid #e8edf3;border-radius:14px}
+.forecast-row span{color:#758399;font-size:.9rem}
+.alert-list{display:grid;gap:14px}
+.alert-card{border-radius:18px;padding:19px;border:1px solid #f0dfbd;background:#fffaf0}
+.alert-card.info{border-color:#d8e7f8;background:#f5faff}
+.alert-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.alert-title{display:flex;align-items:center;gap:10px;font-weight:800}
+.alert-badge{font-size:.72rem;padding:5px 9px;border-radius:99px;background:#fff0cf;color:#a76b00}
+.alert-card.info .alert-badge{background:#e6f2ff;color:#397fda}
+.alert-card p{margin:9px 0 0;color:#758399;line-height:1.5}
+.saved-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.saved-card{padding:20px;border:1px solid #e4ebf3;border-radius:18px;background:#fff}
+.saved-card .city{font-size:1.15rem;font-weight:800}
+.saved-card .temp{font-size:2rem;font-weight:800;margin:13px 0 2px}
+.saved-card small{color:#758399}
+.setting-list{display:grid;gap:12px}
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:17px 0;border-bottom:1px solid #edf1f5}
+.setting-row:last-child{border-bottom:0}
+.setting-copy strong{display:block;margin-bottom:4px}
+.setting-copy span{font-size:.85rem;color:#7b899b}
+.toggle{width:48px;height:28px;border:0;border-radius:99px;background:#d9e3ee;padding:3px;cursor:pointer}
+.toggle.on{background:#5b9bea}
+.toggle span{display:block;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.on span{transform:translateX(20px)}
+@media(max-width:850px){
+ .page-nav{display:none}.page-topbar{padding:0 4%}.page-container{padding:30px 4% 55px}
+ .option-grid{grid-template-columns:repeat(2,1fr)}.page-grid,.saved-grid{grid-template-columns:1fr}
+ .forecast-row{grid-template-columns:75px 1fr 65px}
+}
+@media(max-width:520px){
+ .page-heading h1{font-size:1.55rem}.option-grid{grid-template-columns:1fr 1fr}
+ .forecast-row{grid-template-columns:1fr 1fr}.forecast-row span:nth-child(3),.forecast-row span:nth-child(4){text-align:right}
+}
