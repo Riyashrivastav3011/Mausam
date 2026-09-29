@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CloudSun, Eye, EyeOff, CheckCircle2 } from "lucide-react";
+import toast from "react-hot-toast";
 import "./Signup.css";
 
-function SignupScreen() {
+function Signup() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -15,7 +16,7 @@ function SignupScreen() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [agree, setAgree] = useState(false);
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({
@@ -24,63 +25,73 @@ function SignupScreen() {
     });
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // your same checks
-  if (!form.name || !form.email || !form.mobile || !form.password) {
-    setError("Please fill all the fields.");
-    return;
-  }
-
-  if (!form.email.includes("@")) {
-    setError("Please enter a valid email address.");
-    return;
-  }
-
-  if (!/^[0-9]{10}$/.test(form.mobile)) {
-    setError("Please enter a valid 10-digit mobile number.");
-    return;
-  }
-
-  if (form.password.length < 6) {
-    setError("Password must contain at least 6 characters.");
-    return;
-  }
-
-  if (!agree) {
-    setError("Please accept the terms and conditions.");
-    return;
-  }
-
-  // NEW: send data to backend
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/signup`, {
-      withCredentials:true,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        mobile: form.mobile,
-        password: form.password,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      // backend sent an error (like "email already exists")
-      setError(data.message || "Signup failed");
+    if (!form.name || !form.email || !form.mobile || !form.password) {
+      toast.error("Please fill all the fields.");
       return;
     }
-    navigate("/personalization");
-  } catch (err) {
-    setError("Cannot connect to server. Is the backend running?");
-  }
-};
 
+    if (!form.email.includes("@")) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    if (!/^[0-9]{10}$/.test(form.mobile)) {
+      toast.error("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+
+    if (form.password.length < 6) {
+      toast.error("Password must contain at least 6 characters.");
+      return;
+    }
+
+    if (!agree) {
+      toast.error("Please accept the terms and conditions.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/signup`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            mobile: form.mobile,
+            password: form.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.message || "Signup failed");
+        setLoading(false);
+        return;
+      }
+
+      toast.success("Account created successfully!");
+
+      setTimeout(() => {
+        navigate("/location");
+      }, 800);
+
+    } catch (err) {
+      toast.error("Cannot connect to server. Is the backend running?");
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="auth-page">
@@ -88,6 +99,7 @@ function SignupScreen() {
 
         {/* Left Section */}
         <div className="auth-info">
+
           <div className="auth-logo">
             <CloudSun size={30} />
           </div>
@@ -132,23 +144,28 @@ function SignupScreen() {
 
         {/* Right Section */}
         <div className="auth-form-section">
+
           <div className="auth-form-wrapper">
 
             <div className="auth-heading">
               <h2>Create account</h2>
-              <p>Join Mausam and personalize your weather experience.</p>
+              <p>
+                Join Mausam and personalize your weather experience.
+              </p>
             </div>
 
             <form onSubmit={handleSubmit}>
 
               <div className="input-group">
                 <label>Full Name</label>
+
                 <input
                   type="text"
                   name="name"
                   placeholder="Enter your full name"
                   value={form.name}
                   onChange={handleChange}
+                  disabled={loading}
                 />
               </div>
 
@@ -156,17 +173,20 @@ function SignupScreen() {
 
                 <div className="input-group">
                   <label>Email Address</label>
+
                   <input
                     type="email"
                     name="email"
                     placeholder="you@example.com"
                     value={form.email}
                     onChange={handleChange}
+                    disabled={loading}
                   />
                 </div>
 
                 <div className="input-group">
                   <label>Mobile Number</label>
+
                   <input
                     type="tel"
                     name="mobile"
@@ -174,6 +194,7 @@ function SignupScreen() {
                     maxLength="10"
                     value={form.mobile}
                     onChange={handleChange}
+                    disabled={loading}
                   />
                 </div>
 
@@ -183,17 +204,22 @@ function SignupScreen() {
                 <label>Password</label>
 
                 <div className="password-input">
+
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Create a password"
                     value={form.password}
                     onChange={handleChange}
+                    disabled={loading}
                   />
 
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
+                    onClick={() =>
+                      setShowPassword(!showPassword)
+                    }
+                    disabled={loading}
                   >
                     {showPassword ? (
                       <EyeOff size={19} />
@@ -201,25 +227,31 @@ function SignupScreen() {
                       <Eye size={19} />
                     )}
                   </button>
+
                 </div>
               </div>
 
               <label className="terms">
+
                 <input
                   type="checkbox"
                   checked={agree}
                   onChange={(e) => setAgree(e.target.checked)}
+                  disabled={loading}
                 />
 
                 <span>
                   I agree to the Terms & Conditions and Privacy Policy.
                 </span>
+
               </label>
 
-              {error && <div className="auth-error">{error}</div>}
-
-              <button type="submit" className="auth-submit">
-                Create Account
+              <button
+                type="submit"
+                className="auth-submit"
+                disabled={loading}
+              >
+                {loading ? "Creating Account..." : "Create Account"}
               </button>
 
             </form>
@@ -241,4 +273,4 @@ function SignupScreen() {
   );
 }
 
-export default SignupScreen;
+export default Signup;

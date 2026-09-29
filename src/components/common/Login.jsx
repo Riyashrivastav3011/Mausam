@@ -1,64 +1,75 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./Signup.css";
 
 function Login() {
   const navigate = useNavigate();
-  const [showPassword , setShowPassword] = useState("false");
 
-const [form, setForm] = useState({
-  email: "",
-  password: "",
-});
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-const [error, setError] = useState("");
-
-const handleChange = (e) => {
-  setForm({
-    ...form,
-    [e.target.name]: e.target.value,
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
   });
-};
 
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
-
-  if (!form.email || !form.password) {
-    setError("Please enter email and password.");
-    return;
-  }
-
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-      Credentials:"include",
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: form.email,
-        password: form.password,
-      }),
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    const data = await response.json();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (!response.ok) {
-      // galat password, user not found, etc.
-      setError(data.message || "Login failed");
+    if (!form.email || !form.password) {
+      toast.error("Please enter email and password.");
       return;
     }
 
-    // token ko browser me save karo (baad me protected pages ke kaam aayega)
-    localStorage.setItem("token", data.token);
+    try {
+      setLoading(true);
 
-    // success: dashboard/home page par jao
-    navigate("/");
-  } catch (err) {
-    setError("Cannot connect to server. Is the backend running?");
-  }
-};
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: form.email,
+            password: form.password,
+          }),
+        }
+      );
 
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.message || "Login failed");
+        setLoading(false);
+        return;
+      }
+
+
+      toast.success("Login successful!");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 800);
+
+    } catch (err) {
+      toast.error(
+        "Cannot connect to server. Is the backend running?"
+      );
+
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="login-page">
@@ -116,6 +127,7 @@ const handleSubmit = async (e) => {
             <form onSubmit={handleSubmit}>
 
               <div className="form-group">
+
                 <label>Email Address</label>
 
                 <input
@@ -124,7 +136,9 @@ const handleSubmit = async (e) => {
                   placeholder="Enter your email"
                   value={form.email}
                   onChange={handleChange}
+                  disabled={loading}
                 />
+
               </div>
 
               <div className="form-group">
@@ -139,6 +153,7 @@ const handleSubmit = async (e) => {
                     placeholder="Enter your password"
                     value={form.password}
                     onChange={handleChange}
+                    disabled={loading}
                   />
 
                   <button
@@ -146,6 +161,7 @@ const handleSubmit = async (e) => {
                     onClick={() =>
                       setShowPassword(!showPassword)
                     }
+                    disabled={loading}
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
@@ -157,11 +173,17 @@ const handleSubmit = async (e) => {
               <div className="login-options">
 
                 <label>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    disabled={loading}
+                  />
                   Remember me
                 </label>
 
-                <button type="button">
+                <button
+                  type="button"
+                  disabled={loading}
+                >
                   Forgot password?
                 </button>
 
@@ -170,8 +192,9 @@ const handleSubmit = async (e) => {
               <button
                 type="submit"
                 className="login-button"
+                disabled={loading}
               >
-                Login
+                {loading ? "Logging in..." : "Login"}
               </button>
 
             </form>
